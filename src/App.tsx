@@ -4,7 +4,7 @@ import Item from './Components/Item';
 
 export interface IItem {
   name: string;
-  id: number
+  id: number;
 }
 
 const App:FC = () => {
@@ -14,16 +14,18 @@ const App:FC = () => {
 
   const handleSubmit =(e:React.FormEvent<HTMLFormElement>) =>{
     e.preventDefault()
+    
     if(inputValue){
-      let newItem = {
-        name:inputValue,
-        id: new Date().getTime()
-      }
-      setItems([...items, newItem])
-      setInputValue('')
-
+        let newItem = {
+          name:inputValue,
+          id: new Date().getTime(),
+          editing:false
+        }
+        setItems([...items, newItem])
+        setInputValue('')
     }
-  }
+    }
+  
 
     
      const removeItem = (propId:number):void =>{
@@ -31,7 +33,6 @@ const App:FC = () => {
     setItems(fillter)
   }
 
- 
 
   return (
     <main className="w-screen min-h-screen flex flex-col  justify-start p-8 gap-10 items-center bg-slate-800">
@@ -44,7 +45,7 @@ const App:FC = () => {
         className='w-4/5 h-10 outline-none rounded-md px-2' 
         type="text" />
       </form>
-      <div style={{minHeight: '15rem', width:'50%'}} className=' flex flex-col gap-4 p-6 justify-center border-2 border-white'>
+      <div style={{minHeight: '15rem', width:'50%'}} className=' flex flex-col gap-4 p-6 justify-center border-2 border-white rounded-sm'>
       {
         items.map((item: IItem) =>{
           return <Item removeItem={removeItem} key={item.id} item={item} />
